@@ -1,0 +1,14 @@
+[build]
+  functions = "functions/"
+  # This will be run the site build
+  command = "yarn build"
+  # This is the directory is publishing to netlify's CDN
+  publish = "build/"
+
+[build.environment]
+  # Fix to ensure the Prisma binary is packaged with the lambda function
+  ZISI_VERSION = "0.4.0-9"
+
+[dev]
+  # Local dev command. A.k.a npm start
+  command = "npx react-scripts start"
