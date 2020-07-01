@@ -1,9 +1,9 @@
-import React, { lazy, useState, useEffect } from "react";
-import { useMutation } from "@apollo/client";
-import Modal from "../Modal/Modal";
+import React, { lazy, useState, useEffect } from 'react';
+import { useMutation } from '@apollo/client';
+import Modal from '../Modal/Modal';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 
-import INITIALIZE from "../../graphql/initialize";
+import INITIALIZE from '../../graphql/initialize';
 
 const Game = lazy(() => import('../Game/Game'));
 
@@ -25,25 +25,24 @@ const Home: React.FC = () => {
         setOpen(true);
     };
 
-    const submitNames = async ({username1, username2}) => {
-        const { data } = await Initialize({ variables: { username1, username2 }});
+    const submitNames = async ({ username1, username2 }) => {
+        const { data } = await Initialize({ variables: { username1, username2 } });
         window.localStorage.setItem('gameId', data.initialize.game.id);
         setOpen(false);
         setIsInitialized(true);
     };
 
-
-    useEffect(() => {        
+    useEffect(() => {
         const initializeGame = () => {
             handleOpen();
-        }
+        };
 
         if (!window.localStorage.getItem('gameId')) {
             initializeGame();
         } else {
             setIsInitialized(true);
         }
-    }, [])
+    }, []);
 
     return (
         <div className={classes.container}>
@@ -51,9 +50,8 @@ const Home: React.FC = () => {
             <Modal open={open} submitNames={submitNames} />
         </div>
     );
-}
+};
 
 export default Home;
-
 
 // we need some sort of initialize function that creates 9 squares and provides them a value of ""
