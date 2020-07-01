@@ -73,7 +73,7 @@ const Game: React.FC = () => {
                 id: square.id,
                 value: whosTurn?.symbol,
             }
-        })
+        });
 
         const { data: { updateOneGame } } = await UpdateGame({
             variables: {
@@ -82,7 +82,8 @@ const Game: React.FC = () => {
                     ? users[1].id 
                     : users[0].id,
             }
-        })
+        });
+
         const sortedSquares = updateOneGame.board.squares.slice().sort((a, b) => a.position - b.position);
         const isWinner = calculateWinner(sortedSquares, whosTurn?.symbol);
         
