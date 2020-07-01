@@ -1,3 +1,6 @@
+In order to get the app working, make sure to create a .env file with
+`REACT_APP_API_URL=http://YOURIPADDRESS:4000`
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
