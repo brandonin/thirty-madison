@@ -59,11 +59,11 @@ const Game: React.FC = () => {
         setGameFinished(false);
         setTie(false);
         setWinner(false);
-    }, [Reset, data?.game?.board.id]);
+    }, [Reset, data]);
 
     const handleSquareClick = useCallback(
         async (square: GetGame_game_board_squares) => {
-            const { id, whosTurn, users, board } = data.game;
+            const { id, whosTurn, users } = data.game;
 
             if (square.value) {
                 alert('That box has already been taken!');
