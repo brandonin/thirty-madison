@@ -112,7 +112,7 @@ const Game: React.FC = () => {
                 return false;
             });
         },
-        [UpdateGame, UpdateScore, UpdateSquare, data.game],
+        [UpdateGame, UpdateScore, UpdateSquare, data],
     );
 
     if (loading || !data?.game) {
