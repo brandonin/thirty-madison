@@ -3,6 +3,9 @@ In order to get the app working, make sure to create a .env file with
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+<img width="1440" alt="Screen Shot 2020-07-01 at 3 13 32 AM" src="https://user-images.githubusercontent.com/10239468/86232604-08087480-bb49-11ea-8f59-689af5f53876.png">
+
+
 ## Available Scripts
 
 In the project directory, you can run:
