@@ -1,23 +1,42 @@
 import React, { lazy, Suspense } from "react";
 import { Router, Switch, Route } from "react-router-dom";
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-
 import { ApolloClient, ApolloProvider, HttpLink, ApolloLink, Observable, InMemoryCache } from '@apollo/client';
+import { persistCache } from 'apollo-cache-persist';
+
 import { onError } from '@apollo/link-error';
 
 import './App.css';
 import history from "./utils/history";
 
-const cache = new InMemoryCache();
-
 const Home = lazy(() => import('./components/Home/Home'));
 const Navbar = lazy(() => import('./components/Navbar/Navbar'));
+const cache = new InMemoryCache();
+
+persistCache({
+    cache: cache as any,
+    storage: window.localStorage,
+});
+
+const request = async operation => {
+    const gameId = window.localStorage.getItem('game_id');
+    if (!gameId) {
+        return;
+    }
+
+    operation.setContext({
+        headers: {
+            gameId: gameId ? `${gameId}` : '',
+        },
+    });
+};
 
 const requestLink = new ApolloLink(
     (operation, forward) =>
         new Observable(observer => {
             let handle;
             Promise.resolve(operation)
+                .then(oper => request(oper))    
                 .then(() => {
                     handle = forward(operation).subscribe({
                         next: observer.next.bind(observer),
@@ -50,7 +69,7 @@ const client = new ApolloClient({
         }),
         requestLink,
         new HttpLink({
-            uri: `${process.env.API_URL}/graphql`,
+            uri: `${process.env.REACT_APP_API_URL}/graphql`,
             credentials: 'same-origin',
         }),
     ]),

@@ -6,8 +6,8 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         paper: {
-            height: 100,
-            width: 100,
+            height: 200,
+            width: 200,
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
