@@ -50,25 +50,21 @@ const Game: React.FC = () => {
     const [gameFinished, setGameFinished] = useState(false);
     const [tie, setTie] = useState(false);
 
-    if (loading || !data?.game) {
-        return <div>loading...</div>;
-    }
-
-    const { id, whosTurn, users, board } = data.game;
-
     const reset = useCallback(async () => {
         await Reset({
             variables: {
-                boardId: board.id,
+                boardId: data?.game?.board?.id,
             },
         });
         setGameFinished(false);
         setTie(false);
         setWinner(false);
-    }, [Reset, board.id]);
+    }, [Reset, data?.game?.board.id]);
 
     const handleSquareClick = useCallback(
         async (square: GetGame_game_board_squares) => {
+            const { id, whosTurn, users, board } = data.game;
+
             if (square.value) {
                 alert('That box has already been taken!');
                 return;
@@ -116,8 +112,12 @@ const Game: React.FC = () => {
                 return false;
             });
         },
-        [UpdateGame, UpdateScore, UpdateSquare, id, users, whosTurn],
+        [UpdateGame, UpdateScore, UpdateSquare, data.game],
     );
+
+    if (loading || !data?.game) {
+        return <div>loading...</div>;
+    }
 
     // do a switch statement based on which game it is.
     return (
