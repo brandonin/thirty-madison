@@ -34,15 +34,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Game: React.FC = () => {
     const classes = useStyles();
-    try {
-        const { loading, data } = useQuery<GetGame>(GAME_QUERY, {
-            variables: {
-                gameId: window.localStorage.getItem('gameId'),
-            },
-        });
-    } catch (error) {
-        console.log(error);
-    }
+    const { loading, data } = useQuery<GetGame>(GAME_QUERY, {
+        variables: {
+            gameId: window.localStorage.getItem('gameId'),
+        },
+        errorPolicy: 'none',
+    });
 
     const [UpdateSquare] = useMutation<IUpdateSquare>(UPDATE_SQUARE_MUTATION);
     const [UpdateGame] = useMutation<IUpdateGame>(UPDATE_GAME_MUTATION);
