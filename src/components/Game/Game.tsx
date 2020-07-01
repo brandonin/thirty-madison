@@ -50,6 +50,10 @@ const Game: React.FC = () => {
     const [gameFinished, setGameFinished] = useState(false);
     const [tie, setTie] = useState(false);
 
+    if (loading || !data?.game) {
+        return <div>loading...</div>;
+    }
+
     const { id, whosTurn, users, board } = data.game;
 
     const reset = useCallback(async () => {
@@ -114,10 +118,6 @@ const Game: React.FC = () => {
         },
         [UpdateGame, UpdateScore, UpdateSquare, id, users, whosTurn],
     );
-
-    if (loading || !data?.game) {
-        return <div>loading...</div>;
-    }
 
     // do a switch statement based on which game it is.
     return (
