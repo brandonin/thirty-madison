@@ -4,7 +4,6 @@ import Modal from '../Modal/Modal';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 
 import INITIALIZE from '../../graphql/initialize';
-import GAME_QUERY from '../../graphql/game';
 
 const Game = lazy(() => import('../Game/Game'));
 
@@ -27,18 +26,7 @@ const Home: React.FC = () => {
     };
 
     const submitNames = async ({ username1, username2 }) => {
-        const { data } = await Initialize({
-            variables: {
-                username1,
-                username2,
-            },
-            refetchQueries: [
-                {
-                    query: GAME_QUERY,
-                    variables: { gameId: window.localStorage.getItem('gameId') },
-                },
-            ],
-        });
+        const { data } = await Initialize({ variables: { username1, username2 } });
         window.localStorage.setItem('gameId', data.initialize.game.id);
         setOpen(false);
         setIsInitialized(true);
