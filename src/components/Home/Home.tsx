@@ -10,7 +10,7 @@ const Game = lazy(() => import('../Game/Game'));
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {
-            marginTop: "10%",
+            // marginTop: "10%",
         },
     }),
 );

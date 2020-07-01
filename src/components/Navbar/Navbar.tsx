@@ -1,4 +1,5 @@
 import React from "react";
+import { useQuery } from "@apollo/client";
 import clsx from 'clsx';
 import { makeStyles, useTheme, Theme, createStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -15,9 +16,12 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
-import ExitToApp from '@material-ui/icons/ExitToApp';
+import GTranslate from '@material-ui/icons/MoveToInbox';
+import Extension from '@material-ui/icons/Extension';
+import EmojiObjects from '@material-ui/icons/EmojiObjects';
+
+import GAME_QUERY from "../../graphql/game";
+import { GetGame } from '../../graphql/__generated__/GetGame';
 
 const drawerWidth = 240;
 
@@ -86,6 +90,12 @@ const Navbar: React.FC = () => {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
 
+    const { loading, data } = useQuery<GetGame>(GAME_QUERY, {
+        variables: {
+            gameId: window.localStorage.getItem("gameId"),
+        }
+    });
+
     const handleDrawerOpen = () => {
         setOpen(true);
     };
@@ -94,6 +104,9 @@ const Navbar: React.FC = () => {
         setOpen(false);
     };
 
+    if (loading) {
+        return <div>Loading...</div>;
+    }
     return (
         <div className={classes.root}>
             <CssBaseline />
@@ -104,12 +117,21 @@ const Navbar: React.FC = () => {
                 })}
             >
                 <Toolbar>
-                <Typography variant="h6" noWrap className={classes.title}>
-                    User 1 Score: 1
-                </Typography>
-                <Typography variant="h6" noWrap className={classes.title}>
-                    User 2 Score: 1
-                </Typography>
+                {data && 
+                    <Typography variant="h6" noWrap className={classes.title}>
+                        {data?.game?.users[0]?.name}'s Score: {data?.game?.users[0]?.score?.value}
+                    </Typography>
+                }
+                {data && 
+                    <Typography variant="h6" noWrap className={classes.title}>
+                        {data?.game?.whosTurn?.name && `It's ${data?.game?.whosTurn?.name}'s turn!`}
+                    </Typography>
+                }
+                {data && 
+                    <Typography variant="h6" noWrap className={classes.title}>
+                        {data?.game?.users[1]?.name}'s Score: {data?.game?.users[1]?.score?.value}
+                    </Typography>
+                }
                 <IconButton
                     color="inherit"
                     aria-label="open drawer"
@@ -140,8 +162,16 @@ const Navbar: React.FC = () => {
 
                 <List>
                     <ListItem button>
-                        <ListItemIcon><ExitToApp /></ListItemIcon>
-                        <ListItemText primary={"Log in"} />
+                        <ListItemIcon><EmojiObjects /></ListItemIcon>
+                        <ListItemText primary={"Chess"} />
+                    </ListItem>
+                    <ListItem button>
+                        <ListItemIcon><Extension /></ListItemIcon>
+                        <ListItemText primary={"Checkers"} />
+                    </ListItem>
+                    <ListItem button>
+                        <ListItemIcon><GTranslate /></ListItemIcon>
+                        <ListItemText primary={"Chinese Checkers"} />
                     </ListItem>
                 </List>
             </Drawer>

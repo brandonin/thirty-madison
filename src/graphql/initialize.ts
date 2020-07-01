@@ -14,8 +14,8 @@ const mutation = gql`
                     squares {
                         id
                         value
-                        xPosition
-                        yPosition
+                        position
+                        createdAt
                     }
                 }
             }

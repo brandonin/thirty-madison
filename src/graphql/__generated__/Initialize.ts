@@ -17,8 +17,8 @@ export interface Initialize_initialize_game_board_squares {
   __typename: "Square";
   id: string;
   value: string;
-  xPosition: number;
-  yPosition: number;
+  position: number;
+  createdAt: any;
 }
 
 export interface Initialize_initialize_game_board {

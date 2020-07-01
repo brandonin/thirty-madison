@@ -1,22 +1,13 @@
 import gql from 'graphql-tag';
 
-const query = gql`
-    query GetGame($gameId: String!) {
-        game(where: { id: $gameId }) {
+const mutation = gql`
+    mutation UpdateGame($id: String, $userId: String) {
+        updateOneGame(where: { id: $id }, data: { whosTurn: { connect: { id: $userId } } }) {
             id
             whosTurn {
                 id
                 name
                 symbol
-            }
-            users {
-                id
-                name
-                symbol
-                score {
-                    id
-                    value
-                }
             }
             board {
                 id
@@ -31,4 +22,4 @@ const query = gql`
     }
 `;
 
-export default query;
+export default mutation;
