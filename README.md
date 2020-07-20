@@ -1,3 +1,7 @@
+requirements:
+[TM_-_Engineering_Exercise.pdf](https://github.com/brandonin/tic-tac-toe/files/4949764/TM_-_Engineering_Exercise.pdf)
+
+
 In order to get the app working, make sure to create a .env file with
 `REACT_APP_API_URL=http://YOURIPADDRESS:4000`
 
