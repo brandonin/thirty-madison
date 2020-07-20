@@ -1,5 +1,6 @@
 requirements:
-[TM_-_Engineering_Exercise.pdf](https://github.com/brandonin/tic-tac-toe/files/4949764/TM_-_Engineering_Exercise.pdf)
+<img width="541" alt="Screen Shot 2020-07-20 at 12 52 09 PM" src="https://user-images.githubusercontent.com/10239468/87980114-e7687600-ca87-11ea-9024-4d29c9ed83d6.png">
+
 
 
 In order to get the app working, make sure to create a .env file with
